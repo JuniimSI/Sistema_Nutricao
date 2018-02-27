@@ -1,0 +1,227 @@
+<!DOCTYPE html5>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+	th:with="currentPage='cardapio'">
+
+<head>
+<script type="text/javascript"
+	th:src="@{/js/plugins/jquery/jquery-2.1.1.min.js}"></script>
+<link rel="icon" type="image/png" href="images/icon.png" />
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/jquery.dataTables.min.css}" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/buttons.dataTables.min.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/materialize.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/jquery.dataTables.min.css}" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/buttons.dataTables.min.css}" />
+
+<!-- Framework base -->
+<script type="text/javascript" th:src="@{/js/materialize.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/init.js}"></script>
+<script type="text/javascript" th:src="@{/js/materialize.js}"></script>
+<script type="text/javascript"
+	th:src="@{/js/plugins/jquery/jquery-2.1.1.min.js}"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('#table_prods').DataTable({
+
+			"pageLength" : 7,
+			"lengthChange" : false,
+			"ordering" : true,
+			"search" : false,
+			/* 		    	"info": false,
+			 */"language" : {
+				"paginate" : {
+					"previous" : "Anterior",
+					"next" : "Próximo"
+				}
+
+			}
+		});
+	});
+</script>
+<script type="text/javascript" th:src="@{/js/jquery.dataTables.js}">
+	
+</script>
+<script type="text/javascript"
+	th:src="@{/js/plugins/jquery/jquery.mask.min.js}"></script>
+<script type="text/javascript"
+	th:src="@{/js/plugins/datatables/jquery.dataTables.min.js}"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('select').material_select();
+	});
+</script>
+<script type="text/javascript" th:src="@{/js/plugins/chart/chart.js}"></script>
+<script type="text/javascript" th:src="@{/js/plugins/cookie/cookie.js}"></script>
+<script type="text/javascript" th:src="@{/js/plugins/moment/moment.js}"></script>
+<title>Lista de Cardapios</title>
+</head>
+
+<section layout:fragment="conteudo">
+
+	<nav class="light-blue lighten-1">
+		<div class="nav-wrapper container">
+			<a th:href="@{/}" class="brand-logo"> Início</a>
+			<ul class="right hide-on-med-and-down">
+				<li><a href="#" data-activates="slide-out"
+					class="circular button-collapse-minimalize"> <i
+						class="material-icons">menu</i>
+				</a></li>
+			</ul>
+
+			<a href="#" data-activates="slide-out" class="button-collapse"><i
+				class="mdi-navigation-menu"></i></a>
+			<ul id="slide-out" class="side-nav">
+				<li><div class="user-view">
+						<div class="background">
+							<img th:src="@{/images/office.jpg}" />
+						</div>
+						<a href="#!name"><span
+							th:text=" ${#httpServletRequest.remoteUser}"
+							class="white-text name"> </span></a> <br />
+					</div></li>
+
+				<li><a th:href="@{/produto/listar}" class="light-blue-text"><i
+						class=" material-icons">local_pizza</i>Produtos</a></li>
+				<li><a th:href="@{/receita/listar}" class="light-blue-text"><i
+						class=" material-icons">local_dining</i>Receitas</a></li>
+				<li><a th:href="@{/cardapio/listar}" class="light-blue-text"><i
+						class=" material-icons">event_note</i>Cardápios</a></li>
+				<li><a th:href="@{/programa/listar}" class="light-blue-text"><i
+						class=" material-icons">extension</i>Programas</a></li>
+				<li><a th:href="@{/escola/listar}" class="light-blue-text"><i
+						class=" material-icons">domain</i>Escolas</a></li>
+				<li><div class="divider"></div></li>
+				<li>
+					<form th:action="@{/appLogout}" method="POST">
+						<input class="button " type="submit" value="Sair" />
+					</form>
+				</li>
+			</ul>
+		</div>
+	</nav>
+
+	<div class="row">
+		<div class="col s12">
+			<div class="card">
+				<div class="card-content">
+					<h5 class="title light">Cardapios</h5>
+					<span class="boldtable-datatables blue-grey-text"
+						th:if="${#lists.isEmpty(cardapios)}">Nenhum Cardapio
+						Cadastrado</span>
+					<table id="table_prods" th:unless="${#lists.isEmpty(cardapios)}">
+						<thead>
+							<tr>
+								<th>Nome</th>
+
+								<th>Opções</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="cardapio:${cardapios}">
+								<td th:if="${cardapio.nome == null}" th:text="Cardapio inválido"></td>
+
+								<td th:unless="${cardapio.nome == null}"
+									th:text="${cardapio.nome}"></td>
+
+				
+								<td class="right">
+									<div th:if="${cardapio.editavel}">
+										<a class="btn-icon waves-effect tooltipped"
+											th:href="@{/cardapio/detalhes/__${cardapio.id}__}"
+											th:attr="data-tooltip=${'Visualizar cardapio'}, data-target=${editDataTarget}, data-url=${editDataUrl}">
+											<i class="material-icons">info</i>
+										</a>
+										<!-- th:if="${cardapio.editavel}" -->
+										<a class="btn-icon waves-effect tooltipped"
+											th:href="@{/cardapio/editar/__${cardapio.id}__}"
+											th:attr="data-tooltip=${'Editar Cardapio'}, data-target=${editDataTarget}, data-url=${editDataUrl}">
+											<i class="material-icons" style="color: green">edit</i>
+										</a>
+										<!-- Modal Trigger -->
+										<a class="btn-icon waves-effect tooltipped modal-trigger"
+											href="#modal1"
+											th:href="@{/cardapio/deletar/__${cardapio.id}__}"
+											th:attr="data-tooltip=${'Deletar Cardapio'}, data-target=${deleteDataTarget}, data-url=${editDataUrl}">
+											<i class="material-icons" style="color: red">delete</i>
+										</a> <a class="btn-icon waves-effect tooltipped"
+											th:href="@{/cardapio/custos/__${cardapio.id}__}"
+											th:attr="data-tooltip=${'Visualizar custos do cardapio'}, data-target=${editDataTarget}, data-url=${editDataUrl}">
+											<i class="material-icons">attach_money</i>
+										</a>
+
+									</div>
+									<div th:if="${not cardapio.editavel}">
+										<a class="btn-icon waves-effect tooltipped"
+											th:href="@{/cardapio/detalhes/__${cardapio.id}__}"
+											th:attr="data-tooltip=${'Visualizar cardapio'}, data-target=${editDataTarget}, data-url=${editDataUrl}">
+											<i class="material-icons">info</i>
+										</a>
+										<!-- th:if="${cardapio.editavel}" -->
+										<a class="btn-icon waves-effect tooltipped"
+											th:href="@{/cardapio/editar/__${cardapio.id}__}"
+											th:attr="data-tooltip=${'Editar Cardapio'}, data-target=${editDataTarget}, data-url=${editDataUrl}">
+											<i class="material-icons" style="color: green">edit</i>
+										</a> <a class="btn-icon waves-effect tooltipped"
+											th:href="@{/cardapio/custos/__${cardapio.id}__}"
+											th:attr="data-tooltip=${'Visualizar custos do cardapio'}, data-target=${editDataTarget}, data-url=${editDataUrl}">
+											<i class="material-icons">attach_money</i>
+										</a>
+										<!-- Modal Trigger -->
+										<a class="btn-icon waves-effect tooltipped modal-trigger"
+											href="#modal1"
+											th:href="@{/cardapio/deletar/__${cardapio.id}__}"
+											data-tooltip="Não é possivel remover este cardapio"> <i
+											class="material-icons " style="color: grey">not_interested</i>
+										</a>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<div class="card-action right-align">
+						<div class="action-btn">
+							<a
+								class="btn-floating btn-large light-blue lighteen 1 tooltipped"
+								th:href="@{/cardapio/cadastrar}" data-position="left"
+								data-delay="500" data-tooltip="Novo Cardapio"> <i
+								class="large material-icons">add</i>
+							</a>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+	</div>
+	<!-- Modal excluir seleção -->
+	<div id="excluir-selecao" class="modal">
+		<div class="modal-content">
+			<h4>Excluir cardapio</h4>
+			<p>Tem certeza de que deseja excluir esse cardapio?</p>
+		</div>
+		<div class="modal-footer">
+			<a id="confirm-excluir" th:href="${removeAtt}"
+				class="modal-action waves-effect waves-light btn red">Excluir</a> <a
+				href="#!"
+				class="modal-action modal-close waves-effect waves-green btn-flat purple-text white">Cancelar</a>
+		</div>
+	</div>
+</section>
+<footer id="rodape" class="page-footer light-blue">
+
+	<div class="footer-copyright">
+		<div class="container">Sistema de nutrição da secretaria de
+			educação de Quixeramobim-CE</div>
+	</div>
+</footer>
+</html>

@@ -1,0 +1,158 @@
+<!DOCTYPE html5>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+	th:with="currentPage='escola'">
+
+<head>
+<script type="text/javascript"
+	th:src="@{/js/plugins/jquery/jquery-2.1.1.min.js}"></script>
+<link rel="icon" type="image/png" href="images/icon.png"/>
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/jquery.dataTables.min.css}" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/buttons.dataTables.min.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/materialize.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/jquery.dataTables.min.css}" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/buttons.dataTables.min.css}" />
+
+<!-- Framework base -->
+<script type="text/javascript" th:src="@{/js/materialize.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/init.js}"></script>
+<script type="text/javascript" th:src="@{/js/materialize.js}"></script>
+<script type="text/javascript"
+	th:src="@{/js/plugins/jquery/jquery-2.1.1.min.js}"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('#table_prods').DataTable({
+
+			"pageLength" : 5,
+			"lengthChange" : false,
+			"ordering" : true,
+			"search" : false,
+			/* 		    	"info": false,
+			 */"language" : {
+				"paginate" : {
+					"previous" : "Anterior",
+					"next" : "Próximo"
+				}
+
+			}
+		});
+	});
+</script>
+<script type="text/javascript" th:src="@{/js/jquery.dataTables.js}">
+	
+</script>
+<script type="text/javascript"
+	th:src="@{/js/plugins/jquery/jquery.mask.min.js}"></script>
+<script type="text/javascript"
+	th:src="@{/js/plugins/datatables/jquery.dataTables.min.js}"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('select').material_select();
+	});
+</script>
+<script type="text/javascript" th:src="@{/js/plugins/chart/chart.js}"></script>
+<script type="text/javascript" th:src="@{/js/plugins/cookie/cookie.js}"></script>
+<script type="text/javascript" th:src="@{/js/plugins/moment/moment.js}"></script>
+<title>Lista de Custos</title>
+</head>
+
+
+<section layout:fragment="conteudo">
+
+	<nav class="light-blue lighten-1">
+		<div class="nav-wrapper container">
+			<a th:href="@{/}" class="brand-logo"> Início</a>
+			<ul class="right hide-on-med-and-down">
+				<li><a href="#" data-activates="slide-out"
+					class="circular button-collapse-minimalize"> <i
+						class="material-icons">menu</i>
+				</a></li>
+			</ul>
+
+			<a href="#" data-activates="slide-out" class="button-collapse"><i
+				class="mdi-navigation-menu"></i></a>
+			<ul id="slide-out" class="side-nav">
+				<li><div class="user-view">
+						<div class="background">
+							<img th:src="@{/images/office.jpg}" />
+						</div>
+						<a href="#!name"><span
+							th:text=" ${#httpServletRequest.remoteUser}"
+							class="white-text name"> </span></a> <br />
+					</div></li>
+
+				<li><a th:href="@{/produto/listar}" class="light-blue-text"><i
+						class=" material-icons">local_pizza</i>Produtos</a></li>
+				<li><a th:href="@{/receita/listar}" class="light-blue-text"><i
+						class=" material-icons">local_dining</i>Receitas</a></li>
+				<li><a th:href="@{/cardapio/listar}" class="light-blue-text"><i
+						class=" material-icons">event_note</i>Cardápios</a></li>
+				<li><a th:href="@{/programa/listar}" class="light-blue-text"><i
+						class=" material-icons">extension</i>Programas</a></li>
+				<li><a th:href="@{/escola/listar}" class="light-blue-text"><i
+						class=" material-icons">domain</i>Escolas</a></li>
+				<li><div class="divider"></div></li>
+				<li>
+					<div class="col s12">
+						<form th:action="@{/appLogout}" method="POST">
+							<input class="button" type="submit" value="Sair" />
+						</form>
+					</div>
+				</li>
+			</ul>
+		</div>
+		<a href="#" data-activates="slide-out" class="button-collapse">as</a>
+	</nav>
+
+	<div class="container " style="background: #567">
+		<div class="card light-blue">
+			<div class="card-content">
+				<span style="color: white" th:text="${cardapio.nome}"
+					class="center card-title"></span>
+			</div>
+		</div>
+
+			<div class="card">
+				<div class="card-content">
+					<h5 class="title light">Custos</h5>
+					<span class="boldtable-datatables blue-grey-text"
+						th:if="${#lists.isEmpty(custos_cardapio)}">Nenhum Custo para este cardapio</span>
+					<table id="table_prods" th:unless="${#lists.isEmpty(custos_cardapio)}">
+						<thead>
+							<tr>
+								<th>Nome do Produto</th>
+								<th>Preço (R$)</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="custo:${custos_cardapio}">
+								<td th:text="${custo.nomeProduto}"></td>
+								<td th:text="${custo.precoProduto}"></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+	</div>
+
+</section>
+<footer id="rodape" class="page-footer light-blue">
+
+	<div class="footer-copyright">
+		<div class="container">Sistema de nutrição da secretaria de
+			educação de Quixeramobim-CE</div>
+	</div>
+</footer>
+<script type="text/javascript">
+	
+</script>
+</html>

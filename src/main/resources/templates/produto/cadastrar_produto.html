@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<script type="text/javascript"
+	th:src="@{/js/plugins/jquery/jquery-2.1.1.min.js}"></script>
+<style>
+section {
+	background: #567;
+}
+</style>
+<link rel="icon" type="image/png" href="images/icon.png"/>
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/jquery.dataTables.min.css}" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/buttons.dataTables.min.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/materialize.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/style2.css}" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/jquery.dataTables.min.css}" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/buttons.dataTables.min.css}" />
+<!-- Framework base -->
+<script type="text/javascript" th:src="@{/js/materialize.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/init.js}"></script>
+<script type="text/javascript" th:src="@{/js/materialize.js}"></script>
+<script type="text/javascript"
+	th:src="@{/js/plugins/jquery/jquery-2.1.1.min.js}"></script>
+<script type="text/javascript"
+	th:src="@{/js/plugins/jquery/jquery.mask.min.js}"></script>
+<script type="text/javascript"
+	th:src="@{/js/plugins/datatables/jquery.dataTables.min.js}"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('select').material_select();
+	});
+</script>
+<script type="text/javascript" th:src="@{/js/plugins/chart/chart.js}"></script>
+<script type="text/javascript" th:src="@{/js/plugins/cookie/cookie.js}"></script>
+<script type="text/javascript" th:src="@{/js/plugins/moment/moment.js}"></script>
+<title>Cadastrar Produto</title>
+</head>
+
+<section layout:fragment="conteudo">
+
+
+	<nav class="light-blue lighten-1">
+		<div class="nav-wrapper container">
+			<a th:href="@{/}" class="brand-logo"> Início</a>
+			<ul class="right hide-on-med-and-down">
+				<li><a href="#" data-activates="slide-out"
+					class="circular button-collapse-minimalize"> <i
+						class="material-icons">menu</i>
+				</a></li>
+			</ul>
+
+			<a href="#" data-activates="slide-out" class="button-collapse"><i
+				class="mdi-navigation-menu"></i></a>
+			<ul id="slide-out" class="side-nav">
+				<li><div class="user-view">
+						<div class="background">
+							<img th:src="@{/images/office.jpg}" />
+						</div>
+						<a href="#!name"><span
+							th:text=" ${#httpServletRequest.remoteUser}"
+							class="white-text name"> </span></a> <br />
+					</div></li>
+				<li><a th:href="@{/produto/listar}" class="light-blue-text"><i
+						class=" material-icons">local_pizza</i>Produtos</a></li>
+				<li><a th:href="@{/receita/listar}" class="light-blue-text"><i
+						class=" material-icons">local_dining</i>Receitas</a></li>
+				<li><a th:href="@{/cardapio/listar}" class="light-blue-text"><i
+						class=" material-icons">event_note</i>Cardápios</a></li>
+				<li><a th:href="@{/programa/listar}" class="light-blue-text"><i
+						class=" material-icons">extension</i>Programas</a></li>
+				<li><a th:href="@{/escola/listar}" class="light-blue-text"><i
+						class=" material-icons">domain</i>Escolas</a></li>
+				<li><div class="divider"></div></li>
+				<li>
+					<div class="col s12">
+						<form th:action="@{/appLogout}" method="POST">
+							<input class="button" type="submit" value="Sair" />
+						</form>
+					</div>
+				</li>
+			</ul>
+		</div>
+		<a href="#" data-activates="slide-out" class="button-collapse">as</a>
+	</nav>
+	<div class="container">
+		<div class="col s12">
+			<form data-model="produto" th:action="@{/produto/cadastrar}"
+				th:object="${produto}" th:method="post">
+				<input type="hidden" th:field="*{id}" />
+
+				<div class="card">
+					<div class="card-content">
+						<h5 class="title light"
+							th:text="${acao == 'editar' ? 'Editar produto' : 'Cadastrar produto'}"></h5>
+						<input type="hidden" th:field="*{editavel}" /> <input
+							type="hidden" th:field="*{id}" />
+						<div class="row">
+							<div class="col s2 input-field">
+								<select id="unidadeMedida" th:field="*{unidadeMedidas}">
+									<option th:each="unidade : ${unidadeMedidas}"
+										th:value="${unidade}" th:text="${unidade.nome}"></option>
+								</select> <label for="unidadeMedida">Unidade de Medida</label>
+							</div>
+							<div class="col s6 input-field">
+								<input th:field="*{nome}" type="text" class="validate" id="nome"
+									required="required" /> <label for="nome">Nome</label>
+							</div>
+							<div class="col s2 input-field">
+								<input th:field="*{quantidade}" placeholder="0" type="number"
+									class="validate" id="qtd" required="required" /> <label
+									for="qtd">Quantidade</label>
+							</div>
+							<div class="row col s2 ">
+								<div class="input-field">
+									<input id="valor" th:field="*{valor}" placeholder="0.00"
+										type="number" required="required" step='any' /> <label
+										for="valor">Valor</label>
+								</div>
+							</div>
+						</div>
+						<div class="container">
+							<div class="row col s12">
+								<span class="card-title">Informações Nutricionais Gerais</span>
+								<div class="alimentos">
+									<div class="input-field col s2">
+										<input th:field="*{carboidratos}" id="carboitrados"
+											placeholder="0.00" type="number" required="required"
+											step='any' class="validate" /> <label for="carboitrados">Carboidratos</label>
+									</div>
+									<div class="input-field col s2">
+										<input th:field="*{proteinas}" id="proteinas" type="number"
+											placeholder="0.00" required="required" step='any'
+											class="validate" /> <label for="proteinas">Proteínas</label>
+									</div>
+									<div class="input-field col s2">
+										<input th:field="*{fibras}" id="fibras" type="number"
+											placeholder="0.00" required="required" step='any'
+											class="validate" /> <label for="fibras">Fibras</label>
+									</div>
+									<div class="input-field col s2">
+										<input th:field="*{lipidios}" id="lipidios" step='any'
+											placeholder="0.00" required="required" type="number"
+											class="validate" /> <label for="lipidios">Lipídios</label>
+									</div>
+									<div class="input-field col s2">
+										<input th:field="*{colesterol}" id="colesterol" step='any'
+											placeholder="0.00" required="required" type="number"
+											class="validate" /> <label for="colesterol">Colesterol</label>
+									</div>
+								</div>
+							</div>
+							<div class="row col s12">
+								<span class="card-title">Vitaminas:</span>
+								<div class='vitaminas'>
+									<div class="input-field col s2">
+										<input th:field="*{a}" id="a" type="number" placeholder="0.00"
+											step='any' required="required" class="validate" /> <label
+											for="a">A (ug)</label>
+									</div>
+								</div>
+								<div class="input-field col s2">
+									<input th:field="*{c}" id="c" type="number" step='any'
+										placeholder="0.00" required="required" class="validate" /> <label
+										for="c">C (mg)</label>
+								</div>
+							</div>
+							<div class="row col s10">
+								<span class="card-title">Minerais:</span>
+								<div class='vitaminas'>
+									<div class="input-field col s2">
+										<input th:field="*{ca}" id="ca" step='any' placeholder="0.00"
+											type="number" required="required" class="validate" /> <label
+											for="ca">Ca</label>
+									</div>
+								</div>
+								<div class="input-field col s2">
+									<input th:field="*{fe}" id="fe" step='any' placeholder="0.00"
+										type="number" required="required" class="validate" /> <label
+										for="fe">Fe</label>
+								</div>
+								<div class="input-field col s2">
+									<input th:field="*{mg}" id="mg" step='any' placeholder="0.00"
+										type="number" required="required" class="validate" /> <label
+										for="mg">Mg</label>
+								</div>
+								<div class="input-field col s2">
+									<input th:field="*{zn}" id="zn" step='any' placeholder="0.00"
+										type="number" required="required" class="validate" /> <label
+										for="zn">Zn</label>
+								</div>
+								<div class="input-field col s2">
+									<input id="na" th:field="*{na}" step='any' placeholder="0.00"
+										type="number" required="required" class="validate" /> <label
+										for="na">Na</label>
+								</div>
+								<div class="input-field col s2">
+									<input id="k" type="number" step='any' placeholder="0.00"
+										th:field="*{k}" required="required" class="validate" /> <label
+										for="k">K</label>
+								</div>
+							</div>
+						</div>
+						<div class="card-action right-align">
+							<a th:href="@{/produto/listar/}" type="button"
+								class="light-blue-text white">Cancelar</a>
+							<button type="submit"
+								class="btn waves-effect white-text light-blue">Salvar</button>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</section>
+
+<footer id="rodape" class="page-footer light-blue">
+
+	<div class="footer-copyright">
+		<div class="container">Sistema de nutrição da secretaria de
+			educação de Quixeramobim-CE</div>
+	</div>
+</footer>
+
+</html>

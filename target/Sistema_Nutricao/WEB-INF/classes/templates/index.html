@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1.0" />
+<title>Sistema Nutrição</title>
+
+<!-- CSS  -->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+	rel="stylesheet"></link>
+<link href="css/materialize.css" type="text/css" rel="stylesheet"
+	media="screen,projection"></link>
+<link href="css/style.css" type="text/css" rel="stylesheet"
+	media="screen,projection"></link>
+<link rel="stylesheet" type="text/css" th:href="@{/css/style2.css}" />
+<link rel="icon" type="image/png" href="images/icon.png"/>
+
+</head>
+<body style="background:white">
+	<nav class="light-blue lighten-1">
+		<div class="nav-wrapper container">
+			<ul class="right hide-on-med-and-down">
+				<li><a href="#" data-activates="slide-out"
+					class="circular button-collapse-minimalize"> <i
+						class="material-icons">menu</i>
+				</a></li>
+			</ul>
+
+			<a href="#" data-activates="slide-out" class="button-collapse"><i
+				class="mdi-navigation-menu"></i></a>
+			<ul id="slide-out" class="side-nav">
+				<li><div class="user-view">
+						<div class="background">
+							<img th:src="@{/images/office.jpg}" />
+						</div>
+						<a href="#!name"><span
+							th:text=" ${#httpServletRequest.remoteUser}"
+							class="white-text name"> </span></a> <br />
+					</div></li>
+
+				<li><a th:href="@{/produto/listar}" class="light-blue-text"><i
+						class=" material-icons">local_pizza</i>Produtos</a></li>
+				<li><a th:href="@{/receita/listar}" class="light-blue-text"><i
+						class=" material-icons">local_dining</i>Receitas</a></li>
+				<li><a th:href="@{/cardapio/listar}" class="light-blue-text"><i
+						class=" material-icons">event_note</i>Cardápios</a></li>
+				<li><a th:href="@{/programa/listar}" class="light-blue-text"><i
+						class=" material-icons">extension</i>Programas</a></li>
+				<li><a th:href="@{/escola/listar}" class="light-blue-text"><i
+						class=" material-icons">domain</i>Escolas</a></li>
+				<li><div class="divider"></div></li>
+				<li>
+					<div class="col s12">
+						<form th:action="@{/appLogout}" method="POST">
+							<input class="button" type="submit" value="Sair" />
+						</form>
+					</div>
+				</li>
+			</ul>
+		</div>
+		<a href="#" data-activates="slide-out" class="button-collapse">as</a>
+	</nav>
+
+
+	<div style="background:white" class="section no-pad-bot " id="index-banner">
+		<div style="background:white" class="container">
+			<h4 class="header center light-blue-text">Sistema de Nutrição
+				Educacional</h4>
+			<div class="carousel carousel-slider">
+				<a class="carousel-item" href="#one!"><img
+					th:src="@{/images/background1.png}" /></a> <a class="carousel-item"
+					href="#two!"><img th:src="@{/images/background2.png}" /></a> <a
+					class="carousel-item" href="#three!"><img
+					th:src="@{/images/background3.png}" /></a>
+			</div>
+			<h4 class="center light-blue-text">Controle suas calorias.</h4>
+
+
+
+
+
+
+
+
+
+
+
+<!-- VER ISSO COMO FICA NOS DETALHES COMPLETO COM TODOS OS ANINHAMENTOs 
+
+
+			FILTRAR POR ESCOLA DIFERENTE
+ -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+			<!-- <div class="slider">
+				<ul class="slides">
+					<li><img src="https://lorempixel.com/580/250/nature/1"/>
+						random image
+						<div class="caption center-align">
+							<h3>This is our big Tagline!</h3>
+							<h5 class="light grey-text text-lighten-3">Here's our small
+								slogan.</h5>
+						</div></li>
+					<li><img src="https://lorempixel.com/580/250/nature/2"/>
+						random image
+						<div class="caption left-align">
+							<h3>Left Aligned Caption</h3>
+							<h5 class="light grey-text text-lighten-3">Here's our small
+								slogan.</h5>
+						</div></li>
+					<li><img src="https://lorempixel.com/580/250/nature/3"/>
+						random image
+						<div class="caption right-align">
+							<h3>Right Aligned Caption</h3>
+							<h5 class="light grey-text text-lighten-3">Here's our small
+								slogan.</h5>
+						</div></li>
+					<li><img src="https://lorempixel.com/580/250/nature/4"/>
+						random image
+						<div class="caption center-align">
+							<h3>This is our big Tagline!</h3>
+							<h5 class="light grey-text text-lighten-3">Here's our small
+								slogan.</h5>
+						</div></li>
+				</ul>
+			</div> -->
+
+			<!-- <div class="center background">
+				<img th:src="@{/images/background3.png}" />
+			</div> -->
+
+		</div>
+	</div>
+	<footer  id="rodape" class="page-footer light-blue">
+
+		<div class="footer-copyright">
+			<div class="container">© 2017 Secretaria de Educação, Ciência, Tecnologia e Inovação</div>
+		</div>
+	</footer>
+	<!--  Scripts-->
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('select').material_select();
+			$('.modal').modal();
+			$('.slider').slider();
+		});
+	</script>
+
+	<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+	<script src="js/materialize.js"></script>
+	<script src="js/init.js"></script>
+
+</body>
+</html>

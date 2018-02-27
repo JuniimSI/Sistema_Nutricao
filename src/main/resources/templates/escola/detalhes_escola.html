@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+	th:with="currentPage='escola'">
+
+<head>
+<script type="text/javascript"
+	th:src="@{/js/plugins/jquery/jquery-2.1.1.min.js}"></script>
+<link rel="icon" type="image/png" href="images/icon.png" />
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/jquery.dataTables.min.css}" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/buttons.dataTables.min.css}" />
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/materialize.css}" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/materialize.min.css}" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/jquery.dataTables.min.css}" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/buttons.dataTables.min.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+
+<!-- Framework base -->
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('#table_items').DataTable({
+
+			"pageLength" : 6,
+			"lengthChange" : false,
+			"ordering" : true,
+			"search" : false,
+			"info" : false,
+			"language" : {
+				"paginate" : {
+					"previous" : "Anterior",
+					"next" : "Próximo",
+					"No matching records found" : "Nada encontrado"
+				}
+
+			}
+		});
+	});
+</script>
+<script type="text/javascript" th:src="@{/js/jquery.dataTables.js}">
+	
+</script>
+<script type="text/javascript" th:src="@{/js/materialize.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/init.js}"></script>
+<script type="text/javascript" th:src="@{/js/materialize.js}"></script>
+<script type="text/javascript"
+	th:src="@{/js/plugins/jquery/jquery-2.1.1.min.js}"></script>
+<script type="text/javascript"
+	th:src="@{/js/plugins/jquery/jquery.mask.min.js}"></script>
+<script type="text/javascript"
+	th:src="@{/js/plugins/datatables/jquery.dataTables.min.js}"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('select').material_select();
+	});
+</script>
+<script type="text/javascript" th:src="@{/js/plugins/chart/chart.js}"></script>
+<script type="text/javascript" th:src="@{/js/plugins/cookie/cookie.js}"></script>
+<script type="text/javascript" th:src="@{/js/plugins/moment/moment.js}"></script>
+<title>Detalhes Escola</title>
+</head>
+
+<section layout:fragment="conteudo">
+
+
+	<nav class="light-blue lighten-1">
+		<div class="nav-wrapper container">
+			<a th:href="@{/}" class="brand-logo"> Início</a>
+			<ul class="right hide-on-med-and-down">
+				<li><a href="#" data-activates="slide-out"
+					class="circular button-collapse-minimalize"> <i
+						class="material-icons">menu</i>
+				</a></li>
+			</ul>
+
+			<a href="#" data-activates="slide-out" class="button-collapse"><i
+				class="mdi-navigation-menu"></i></a>
+			<ul id="slide-out" class="side-nav">
+				<li><div class="user-view">
+						<div class="background">
+							<img th:src="@{/images/office.jpg}" />
+						</div>
+						<a href="#!name"><span
+							th:text=" ${#httpServletRequest.remoteUser}"
+							class="white-text name"> </span></a> <br />
+					</div></li>
+				<li><a th:href="@{/produto/listar}" class="light-blue-text"><i
+						class=" material-icons">local_pizza</i>Produtos</a></li>
+				<li><a th:href="@{/receita/listar}" class="light-blue-text"><i
+						class=" material-icons">local_dining</i>Receitas</a></li>
+				<li><a th:href="@{/cardapio/listar}" class="light-blue-text"><i
+						class=" material-icons">event_note</i>Cardápios</a></li>
+				<li><a th:href="@{/programa/listar}" class="light-blue-text"><i
+						class=" material-icons">extension</i>Programas</a></li>
+				<li><a th:href="@{/escola/listar}" class="light-blue-text"><i
+						class=" material-icons">domain</i>Escolas</a></li>
+				<li><div class="divider"></div></li>
+				<li>
+					<div class="col s12">
+						<form th:action="@{/appLogout}" method="POST">
+							<input class="button" type="submit" value="Sair" />
+						</form>
+					</div>
+				</li>
+			</ul>
+		</div>
+		<a href="#" data-activates="slide-out" class="button-collapse">as</a>
+	</nav>
+
+
+	<div class="container">
+		<div class="col s12">
+			<div class="container">
+				<div class="row col s12">
+					<div class="card">
+						<div class="card-content ">
+							<span th:text="${escola.nome}" class="center card-title"></span>
+							<div class="alimentos">
+								<div class="row center" id="novoAlimento">
+									<table id="table_items" class="display nowrap striped bordered"
+										cellspacing="0" width="100%">
+										<thead>
+											<tr>
+												<th>Nome</th>
+												<th>Telefone</th>
+												<th>Quantidade de alunos</th>
+												<th>Opções</th>
+											</tr>
+										</thead>
+										<tbody class="table1">
+											<tr th:each="programa:${programas}" th:class="${programa}">
+												<td th:text="${programa.nome}"></td>
+												<td th:text="${programa.telefone}"></td>
+												<td th:text="${programa.qtd_alunos}"></td>
+												<td><a class="btn-icon waves-effect tooltipped"
+													th:href="@{/programa/escola/__${escola.id}__/detalhes/__${programa.id}__}"
+													th:attr="data-tooltip=${'Visualizar programa'}, data-target=${editDataTarget}, data-url=${editDataUrl}">
+														<i class="material-icons">info</i>
+												</a> <!--Modal Trigger --> <a
+													class="btn-icon waves-effect tooltipped modal-trigger"
+													href="#modal1"
+													th:href="@{/escola/__${escola.id}__/programa/deletar/__${programa.id}__}"
+													th:attr="data-tooltip=${'Deletar programa'}, data-target=${deleteDataTarget}, data-url=${editDataUrl}">
+														<i class="material-icons" style="color: red">delete</i>
+												</a></td>
+											</tr>
+										</tbody>
+									</table>
+									<a id="news"
+										class="btn-floating btn-large waves-effect light-blue right modal-trigger"
+										href="#modal1"><i class="material-icons">add</i></a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="modal1" class="modal">
+				<div class="modal-content">
+					<div class="col s6">
+						<div th:replace="escola/adicionar_programas_escola:: programaadd"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</section>
+
+<footer id="rodape" class="page-footer light-blue">
+
+	<div class="footer-copyright">
+		<div class="container">Sistema de nutrição da secretaria de
+			educação de Quixeramobim-CE</div>
+	</div>
+</footer>
+<script type="text/javascript">
+	
+</script>
+</html>

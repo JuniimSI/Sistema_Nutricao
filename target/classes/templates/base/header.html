@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<header class="navbar-fixed sidenav-opened" th:fragment="header">
+	<nav class="light-blue lighten-1">
+
+		<div class="nav-wrapper container">
+			<ul class="right hide-on-med-and-down">
+				<li><a href="#" data-activates="slide-out"
+					class="circular button-collapse-minimalize"> <i
+						class="material-icons">menu</i>
+				</a></li>
+			</ul>
+
+			<a href="#" data-activates="slide-out" class="button-collapse"><i
+				class="mdi-navigation-menu"></i></a>
+			<ul id="slide-out" class="side-nav">
+				<li><div class="user-view">
+						<div class="background">
+							<img th:src="@{/images/office.jpg}" />
+						</div>
+						<a href="#!name"><span class="white-text name">Nome
+								Usuário</span></a> <a href="#!email"><span class="white-text email">emailDoUsuariok@gmail.com</span></a>
+					</div></li>
+
+
+				<li><a th:href="@{/produto/listar}" class="light-blue-text"><i
+						class=" material-icons">free_breakfast</i>Produtos</a></li>
+				<li><a th:href="@{/receita/listar}" class="light-blue-text"><i
+						class=" material-icons">free_breakfast</i>Receitas</a></li>
+				<li><a th:href="@{/cardapio/listar}" class="light-blue-text"><i
+						class=" material-icons">free_breakfast</i>Cardápios</a></li>
+				<li><a th:href="@{/programa/listar}" class="light-blue-text"><i
+						class=" material-icons">free_breakfast</i>Programas</a></li>
+				<li><a th:href="@{/escola/listar}" class="light-blue-text"><i
+						class=" material-icons">free_breakfast</i>Escolas</a></li>
+				<li><div class="divider"></div></li>
+				<li>
+					<form th:action="@{/appLogout}" method="POST">
+						<input class="btn " type="submit" value="Sair" />
+					</form>
+				</li>
+			</ul>
+		</div>
+	</nav>
+</header>
+</html>

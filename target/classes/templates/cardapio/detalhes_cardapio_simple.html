@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+	th:with="currentPage='cardapio'">
+
+<head>
+<script type="text/javascript"
+	th:src="@{/js/plugins/jquery/jquery-2.1.1.min.js}"></script>
+<link rel="icon" type="image/png" href="images/icon.png" />
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/jquery.dataTables.min.css}" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/buttons.dataTables.min.css}" />
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/materialize.css}" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/materialize.min.css}" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/jquery.dataTables.min.css}" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/buttons.dataTables.min.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+
+<!-- Framework base -->
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('#table_items').DataTable({
+
+			"pageLength" : 6,
+			"lengthChange" : false,
+			"ordering" : true,
+			"search" : false,
+			"info" : false,
+			"language" : {
+				"paginate" : {
+					"previous" : "Anterior",
+					"next" : "Próximo",
+					"No matching records found" : "Nada encontrado"
+				}
+
+			}
+		});
+	});
+</script>
+<script type="text/javascript" th:src="@{/js/jquery.dataTables.js}">
+	
+</script>
+<script type="text/javascript" th:src="@{/js/materialize.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/init.js}"></script>
+<script type="text/javascript" th:src="@{/js/materialize.js}"></script>
+<script type="text/javascript"
+	th:src="@{/js/plugins/jquery/jquery-2.1.1.min.js}"></script>
+<script type="text/javascript"
+	th:src="@{/js/plugins/jquery/jquery.mask.min.js}"></script>
+<script type="text/javascript"
+	th:src="@{/js/plugins/datatables/jquery.dataTables.min.js}"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('select').material_select();
+	});
+</script>
+<script type="text/javascript" th:src="@{/js/plugins/chart/chart.js}"></script>
+<script type="text/javascript" th:src="@{/js/plugins/cookie/cookie.js}"></script>
+<script type="text/javascript" th:src="@{/js/plugins/moment/moment.js}"></script>
+<title>Detalhes Cardápio</title>
+</head>
+
+<section layout:fragment="conteudo">
+
+
+	<nav class="light-blue lighten-1">
+		<div class="nav-wrapper container">
+			<a th:href="@{/}" class="brand-logo"> Início</a>
+			<ul class="right hide-on-med-and-down">
+				<li><a href="#" data-activates="slide-out"
+					class="circular button-collapse-minimalize"> <i
+						class="material-icons">menu</i>
+				</a></li>
+			</ul>
+
+			<a href="#" data-activates="slide-out" class="button-collapse"><i
+				class="mdi-navigation-menu"></i></a>
+			<ul id="slide-out" class="side-nav">
+				<li><div class="user-view">
+						<div class="background">
+							<img th:src="@{/images/office.jpg}" />
+						</div>
+						<a href="#!name"><span
+							th:text=" ${#httpServletRequest.remoteUser}"
+							class="white-text name"> </span></a> <br />
+					</div></li>
+
+				<li><a th:href="@{/produto/listar}" class="light-blue-text"><i
+						class=" material-icons">local_pizza</i>Produtos</a></li>
+				<li><a th:href="@{/receita/listar}" class="light-blue-text"><i
+						class=" material-icons">local_dining</i>Receitas</a></li>
+				<li><a th:href="@{/cardapio/listar}" class="light-blue-text"><i
+						class=" material-icons">event_note</i>Cardápios</a></li>
+				<li><a th:href="@{/programa/listar}" class="light-blue-text"><i
+						class=" material-icons">extension</i>Programas</a></li>
+				<li><a th:href="@{/escola/listar}" class="light-blue-text"><i
+						class=" material-icons">domain</i>Escolas</a></li>
+				<li><div class="divider"></div></li>
+				<li>
+					<div class="col s12">
+						<form th:action="@{/appLogout}" method="POST">
+							<input class="button" type="submit" value="Sair" />
+						</form>
+					</div>
+				</li>
+			</ul>
+		</div>
+		<a href="#" data-activates="slide-out" class="button-collapse">as</a>
+	</nav>
+
+	<div class="container-fluid">
+		<div class="card light-blue">
+			<div class="card-content">
+				<span style="color: white" th:text="${cardapio.nome}"
+					class="center card-title"></span>
+			</div>
+		</div>
+
+		<br />
+
+		<div class="carousel carousel-slider" data-indicators="true">
+			<div class="carousel-fixed-item center middle-indicator">
+				<div class="left">
+					<a href="Previo"
+						class="movePrevCarousel middle-indicator-text waves-effect waves-light content-indicator"><i
+						class="material-icons left  middle-indicator-text">chevron_left</i></a>
+				</div>
+
+				<div class="right">
+					<a href="Siguiente"
+						class=" moveNextCarousel middle-indicator-text waves-effect waves-light content-indicator"><i
+						class="material-icons right middle-indicator-text">chevron_right</i></a>
+				</div>
+			</div>
+			<div class="row center carousel-item">
+				<div class="col s4">
+					<div class="card">
+						<div class="card-content">
+							<div th:unless="${#lists.isEmpty(cardapio.segunda)}">
+								<span class="card-title">Segunda-Feira</span>
+								<div th:each="obj:${segunda}">
+									<div>
+										<a th:href="@{/receita/detalhes/__${obj.id}__}"
+											th:text="${obj.nome}" class="card-title"></a> <a
+											th:href="@{/cardapio/__${cardapio.id}__/receita/__${obj.id}__/segunda/excluir}"
+											th:attr="data-tooltip=${'Deletar Receita'}"
+											class="btn-icon waves-effect tooltipped modal-trigger"> <i
+											class="material-icons" style="color: red">delete</i></a>
+									</div>
+
+									<a th:unless="${#lists.size(cardapio.segunda)} >= 4"
+										href="#segunda"
+										class="btn-floating btn-large halfway-fab modal-trigger waves-light light-blue"><i
+										class="material-icons">add</i></a>
+								</div>
+							</div>
+							<div th:if="${#lists.isEmpty(cardapio.segunda)}">
+								<span class="card-title">Segunda-Feira</span> <span
+									style="color: red" class="card-title">Insira uma receita</span>
+								<p>Receita para segunda-feira.</p>
+								<a href="#segunda"
+									class="btn-floating btn-large halfway-fab modal-trigger waves-light light-blue"><i
+									class="material-icons">add</i></a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col s4">
+					<div class="card">
+						<div class="card-content">
+							<div th:unless="${#lists.isEmpty(cardapio.terca)}">
+								<span class="card-title">Terça-Feira</span>
+								<div th:each="obj:${terca}">
+									<a th:href="@{/receita/detalhes/__${obj.id}__}"
+										th:text="${obj.nome}" class="card-title"></a> <a
+										th:href="@{/cardapio/__${cardapio.id}__/receita/__${obj.id}__/terca/excluir}"
+										th:attr="data-tooltip=${'Deletar Receita'}"
+										class="btn-icon waves-effect tooltipped modal-trigger"> <i
+										class="material-icons" style="color: red">delete</i></a> <a
+										href="#terca" th:unless="${#lists.size(cardapio.terca)} >= 4"
+										class="btn-floating btn-large halfway-fab modal-trigger waves-light light-blue"><i
+										class="material-icons">add</i></a>
+								</div>
+							</div>
+							<div th:if="${#lists.isEmpty(cardapio.terca)}">
+								<span class="card-title">Terça-Feira</span> <span
+									style="color: red" class="card-title">Insira uma receita</span>
+								<p>Receita para terça-feira.</p>
+								<a href="#terca"
+									class="btn-floating btn-large halfway-fab  modal-trigger waves-light light-blue"><i
+									class="material-icons">add</i></a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col s4">
+					<div class="card">
+						<div class="card-content">
+							<div th:unless="${#lists.isEmpty(cardapio.quarta)}">
+								<span class="card-title">Quarta-Feira</span>
+								<div th:each="obj:${quarta}">
+									<a th:href="@{/receita/detalhes/__${obj.id}__}"
+										th:text="${obj.nome}" class="card-title"></a> <a
+										th:href="@{/cardapio/__${cardapio.id}__/receita/__${obj.id}__/quarta/excluir}"
+										th:attr="data-tooltip=${'Deletar Receita'}"
+										class="btn-icon waves-effect tooltipped modal-trigger"> <i
+										class="material-icons" style="color: red">delete</i></a> <a
+										href="#quarta"
+										th:unless="${#lists.size(cardapio.quarta)} >= 4"
+										class="btn-floating btn-large halfway-fab modal-trigger waves-light light-blue"><i
+										class="material-icons">add</i></a>
+								</div>
+							</div>
+							<div th:if="${#lists.isEmpty(cardapio.quarta)}">
+								<span class="card-title">Quarta-Feira</span> <span
+									style="color: red" class="card-title">Insira uma receita</span>
+								<p>Receita para quarta-feira.</p>
+								<a href="#quarta"
+									class="btn-floating btn-large halfway-fab  modal-trigger waves-light light-blue"><i
+									class="material-icons">add</i></a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row center carousel-item">
+				<div class="col s6">
+					<div class="card">
+						<div class="card-content">
+							<div th:unless="${#lists.isEmpty(cardapio.quinta)}">
+								<span class="card-title">Quinta-Feira</span>
+								<div th:each="obj:${quinta}">
+									<a th:href="@{/receita/detalhes/__${obj.id}__}"
+										th:text="${obj.nome}" class="card-title"></a> <a
+										th:href="@{/cardapio/__${cardapio.id}__/receita/__${obj.id}__/quinta/excluir}"
+										th:attr="data-tooltip=${'Deletar Receita'}"
+										class="btn-icon waves-effect tooltipped modal-trigger"> <i
+										class="material-icons" style="color: red">delete</i></a> <a
+										href="#quinta"
+										th:unless="${#lists.size(cardapio.quinta)} >= 4"
+										class="btn-floating btn-large halfway-fab modal-trigger waves-light light-blue"><i
+										class="material-icons">add</i></a>
+								</div>
+							</div>
+							<div th:if="${#lists.isEmpty(cardapio.quinta)}">
+								<span class="card-title">Quinta-Feira</span> <span
+									style="color: red" class="card-title">Insira uma receita</span>
+								<p>Receita para quinta-feira.</p>
+								<a href="#quinta"
+									class="btn-floating btn-large halfway-fab waves-light  modal-trigger light-blue"><i
+									class="material-icons">add</i></a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col s6">
+					<div class="card">
+						<div class="card-content">
+							<div th:unless="${#lists.isEmpty(cardapio.sexta)}">
+								<span class="card-title">Sexta-Feira</span>
+								<div th:each="obj:${sexta}">
+									<a th:href="@{/receita/detalhes/__${obj.id}__}"
+										th:text="${obj.nome}" class="card-title"></a> <a
+										th:href="@{/cardapio/__${cardapio.id}__/receita/__${obj.id}__/sexta/excluir}"
+										th:attr="data-tooltip=${'Deletar Receita'}"
+										class="btn-icon waves-effect tooltipped modal-trigger"> <i
+										class="material-icons" style="color: red">delete</i></a> <a
+										href="#sexta" th:unless="${#lists.size(cardapio.sexta)} >= 4"
+										class="btn-floating btn-large halfway-fab modal-trigger waves-light light-blue"><i
+										class="material-icons">add</i></a>
+								</div>
+							</div>
+							<div th:if="${#lists.isEmpty(cardapio.sexta)}">
+								<span class="card-title">Sexta-Feira</span> <span
+									style="color: red" class="card-title">Insira uma receita</span>
+								<p>Receita para sexta-feira.</p>
+								<a href="#sexta"
+									class="btn-floating btn-large halfway-fab waves-light modal-trigger light-blue"><i
+									class="material-icons">add</i></a>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+
+		<!-- <div class="row center">
+			<div class="col s2">
+				<div class="card">
+					<div class="card-content">
+						<div th:unless="${#lists.isEmpty(cardapio.segunda)}">
+							<span class="card-title">Segunda-Feira</span>
+							<div th:each="obj:${segunda}">
+								<div>
+									<a th:href="@{/receita/detalhes/__${obj.id}__}"
+										th:text="${obj.nome}" class="card-title"></a> <a
+										class="btn-icon waves-effect tooltipped modal-trigger"> <i
+										class="material-icons" style="color: red">delete</i></a>
+								</div>
+
+								<a href="#segunda"
+									class="btn-floating btn-large halfway-fab modal-trigger waves-light light-blue"><i
+									class="material-icons">add</i></a>
+							</div>
+						</div>
+						<div th:if="${#lists.isEmpty(cardapio.segunda)}">
+							<span style="color: red" class="card-title">Insira uma
+								receita</span>
+							<p>Receita para segunda-feira.</p>
+							<a href="#segunda"
+								class="btn-floating btn-large halfway-fab modal-trigger waves-light light-blue"><i
+								class="material-icons">add</i></a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col s2">
+				<div class="card">
+					<div class="card-content">
+						<div th:unless="${#lists.isEmpty(cardapio.terca)}">
+							<span class="card-title">Terça-Feira</span>
+							<div th:each="obj:${terca}">
+								<a th:href="@{/receita/detalhes/__${obj.id}__}"
+									th:text="${obj.nome}" class="card-title"></a> <a href="#terca"
+									class="btn-floating btn-large halfway-fab modal-trigger waves-light light-blue"><i
+									class="material-icons">add</i></a>
+							</div>
+						</div>
+						<div th:if="${#lists.isEmpty(cardapio.terca)}">
+							<span style="color: red" class="card-title">Insira uma
+								receita</span>
+							<p>Receita para terça-feira.</p>
+							<a href="#terca"
+								class="btn-floating btn-large halfway-fab  modal-trigger waves-light light-blue"><i
+								class="material-icons">add</i></a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col s2">
+				<div class="card">
+					<div class="card-content">
+						<div th:unless="${#lists.isEmpty(cardapio.quarta)}">
+							<span class="card-title">Quarta-Feira</span>
+							<div th:each="obj:${quarta}">
+								<a th:href="@{/receita/detalhes/__${obj.id}__}"
+									th:text="${obj.nome}" class="card-title"></a> <a href="#quarta"
+									class="btn-floating btn-large halfway-fab modal-trigger waves-light light-blue"><i
+									class="material-icons">add</i></a>
+							</div>
+						</div>
+						<div th:if="${#lists.isEmpty(cardapio.quarta)}">
+							<span style="color: red" class="card-title">Insira uma
+								receita</span>
+							<p>Receita para quarta-feira.</p>
+							<a href="#quarta"
+								class="btn-floating btn-large halfway-fab  modal-trigger waves-light light-blue"><i
+								class="material-icons">add</i></a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col s5">
+				<div class="card">
+					<div class="card-content">
+						<div th:unless="${#lists.isEmpty(cardapio.quinta)}">
+							<span class="card-title">Quinta-Feira</span>
+							<div th:each="obj:${quinta}">
+								<a th:href="@{/receita/detalhes/__${obj.id}__}"
+									th:text="${obj.nome}" class="card-title"></a> <a href="#quinta"
+									class="btn-floating btn-large halfway-fab modal-trigger waves-light light-blue"><i
+									class="material-icons">add</i></a>
+							</div>
+						</div>
+						<div th:if="${#lists.isEmpty(cardapio.quinta)}">
+							<span style="color: red" class="card-title">Insira uma
+								receita</span>
+							<p>Receita para quinta-feira.</p>
+							<a href="#quinta"
+								class="btn-floating btn-large halfway-fab waves-light  modal-trigger light-blue"><i
+								class="material-icons">add</i></a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col s5">
+				<div class="card">
+					<div class="card-content">
+						<div th:unless="${#lists.isEmpty(cardapio.sexta)}">
+							<span class="card-title">Sexta-Feira</span>
+							<div th:each="obj:${sexta}">
+								<a th:href="@{/receita/detalhes/__${obj.id}__}"
+									th:text="${obj.nome}" class="card-title"></a> <a href="#sexta"
+									class="btn-floating btn-large halfway-fab modal-trigger waves-light light-blue"><i
+									class="material-icons">add</i></a>
+							</div>
+						</div>
+						<div th:if="${#lists.isEmpty(cardapio.sexta)}">
+							<span style="color: red" class="card-title">Insira uma
+								receita</span>
+							<p>Receita para sexta-feira.</p>
+							<a href="#sexta"
+								class="btn-floating btn-large halfway-fab waves-light modal-trigger light-blue"><i
+								class="material-icons">add</i></a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div> -->
+
+	</div>
+</section>
+
+<div id="sexta" class="modal">
+	<div class="modal-content">
+		<form data-model="cardapio"
+			th:action="@{/cardapio/__${cardapio.id}__/receita/sexta/adicionar}"
+			th:object="${cardapio}" th:method="post">
+			<input type="hidden" name="cardapio" th:value="${cardapio.id}" />
+			<h5 class="title light">Adicionando Receita</h5>
+			<div class="row">
+				<div class="row center col s12 input-field">
+					<select name="receita" id="receitaObject">
+						<option th:each="receita : ${receitasSelect}"
+							th:value="${receita.id}" th:text="${receita.nome}"></option>
+					</select> <label for="receitaObject">Receita</label>
+				</div>
+			</div>
+			<div class="row center">
+				<button type="submit"
+					class="waves-effect waves-light btn light-blue">Adicionar</button>
+			</div>
+		</form>
+	</div>
+</div>
+
+<div id="quinta" class="modal">
+	<div class="modal-content">
+		<form data-model="cardapio"
+			th:action="@{/cardapio/__${cardapio.id}__/receita/quinta/adicionar}"
+			th:object="${cardapio}" th:method="post">
+			<input type="hidden" name="cardapio" th:value="${cardapio.id}" />
+			<h5 class="title light">Adicionando Receita</h5>
+			<div class="row">
+				<div class="row center col s12 input-field">
+					<select name="receita" id="receitaObject">
+						<option th:each="receita : ${receitasSelect}"
+							th:value="${receita.id}" th:text="${receita.nome}"></option>
+					</select> <label for="receitaObject">Receita</label>
+				</div>
+			</div>
+			<div class="row center">
+				<button type="submit"
+					class="waves-effect waves-light btn light-blue">Adicionar</button>
+			</div>
+		</form>
+	</div>
+</div>
+
+<div id="quarta" class="modal">
+	<div class="modal-content">
+		<form data-model="cardapio"
+			th:action="@{/cardapio/__${cardapio.id}__/receita/quarta/adicionar}"
+			th:object="${cardapio}" th:method="post">
+			<input type="hidden" name="cardapio" th:value="${cardapio.id}" />
+			<h5 class="title light">Adicionando Receita</h5>
+			<div class="row">
+				<div class="row center col s12 input-field">
+					<select name="receita" id="receitaObject">
+						<option th:each="receita : ${receitasSelect}"
+							th:value="${receita.id}" th:text="${receita.nome}"></option>
+					</select> <label for="receitaObject">Receita</label>
+				</div>
+			</div>
+			<div class="row center">
+				<button type="submit"
+					class="waves-effect waves-light btn light-blue">Adicionar</button>
+			</div>
+		</form>
+	</div>
+</div>
+
+<div id="terca" class="modal">
+	<div class="modal-content">
+		<form data-model="cardapio"
+			th:action="@{/cardapio/__${cardapio.id}__/receita/terca/adicionar}"
+			th:object="${cardapio}" th:method="post">
+			<input type="hidden" name="cardapio" th:value="${cardapio.id}" />
+			<h5 class="title light">Adicionando Receita</h5>
+			<div class="row">
+				<div class="row center col s12 input-field">
+					<select name="receita" id="receitaObject">
+						<option th:each="receita : ${receitasSelect}"
+							th:value="${receita.id}" th:text="${receita.nome}"></option>
+					</select> <label for="receitaObject">Receita</label>
+				</div>
+			</div>
+			<div class="row center">
+				<button type="submit"
+					class="waves-effect waves-light btn light-blue">Adicionar</button>
+			</div>
+		</form>
+	</div>
+</div>
+
+<div id="segunda" class="modal">
+	<div class="modal-content">
+		<form data-model="cardapio"
+			th:action="@{/cardapio/__${cardapio.id}__/receita/segunda/adicionar}"
+			th:object="${cardapio}" th:method="post">
+			<input type="hidden" name="cardapio" th:value="${cardapio.id}" />
+			<h5 class="title light">Adicionando Receita</h5>
+			<div class="row">
+				<div class="row center col s12 input-field">
+					<select name="receita" id="receitaObject">
+						<option th:each="receita : ${receitasSelect}"
+							th:value="${receita.id}" th:text="${receita.nome}"></option>
+					</select> <label for="receitaObject">Receita</label>
+				</div>
+			</div>
+			<div class="row center">
+				<button type="submit"
+					class="waves-effect waves-light btn light-blue">Adicionar</button>
+			</div>
+		</form>
+	</div>
+</div>
+
+<footer id="rodape" class="page-footer light-blue">
+
+	<div class="footer-copyright">
+		<div class="container">Sistema de nutrição da secretaria de
+			educação de Quixeramobim-CE</div>
+	</div>
+</footer>
+<script type="text/javascript">
+	
+</script>
+</html>

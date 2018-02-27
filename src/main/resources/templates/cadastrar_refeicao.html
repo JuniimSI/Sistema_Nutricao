@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+  <title>Starter Template - Materialize</title>
+
+  <!-- CSS  -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+</head>
+<body>
+  <nav class="light-blue lighten-1" role="navigation">
+    <div class="nav-wrapper container"><a id="logo-container" href="index.html" class="brand-logo">Logo</a>
+      
+
+      <ul id="nav-mobile" class="side-nav">
+        <li><a href="#">Navbar Link</a></li>
+      </ul>
+      <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+    </div>
+  </nav>
+  <div class="section no-pad-bot" id="index-banner">
+    <div class="container">
+      <h4 class="header center black-text">Cadastro de Refeição</h4>
+     
+      <div class="row col s12">
+       <div class="input-field col s8">
+          <input id="nome_refeicao" type="text" class="validate">
+          <label for="nome_refeicao">Nome da Refeição</label>
+        </div>
+	  </div>
+    </div>
+  </div>
+
+	<div class="container">     
+      <div class="row col s12">
+		  <div class="card">
+		        <div class="card-content ">
+		            <span class="card-title">Adicionar alimentos</span>
+		              <div class="alimentos">
+			            <div class="row center" id="novoAlimento">
+                    <table id="alimentos" class="display nowrap striped bordered" cellspacing="0" width="100%">
+                
+                <thead>
+                <tr>
+                  <th>Nome do Alimento</th>
+                  <th>Quantidade</th>
+                  <th>Unidade de Medida</th>
+                </tr>
+                </thead>
+                <tbody class="table1">
+                
+                </tbody>
+              </table>
+			            </div>
+			           </div>
+                  
+
+                  <div id="modal1" class="modal">
+                    <div class="modal-content">
+                      <h4>Adicionar alimento</h4>
+                        <div class="row center" id="novoAlimento">
+                          <div class="input-field col s4">
+                        <select>
+                          <option value="1">Arroz</option>
+                          <option value="2">Feijão</option>
+                          <option value="3">Banana</option>
+                        </select>
+                        <label>Nome do alimento:</label>
+                    </div>
+                    <div class="input-field col s4">
+                          <input placeholder="Quantidade" id="qtd" type="number" class="validate">
+                          <label for="qtd">Quantidade</label>
+                        </div>
+                        <div class="input-field col s4">
+                          <select>
+                            <option value="1">Kg</option>
+                            <option value="2">Pct</option>
+                            <option value="3">L</option>
+                          </select>
+                          <label>Unidade de medida:</label>
+                    </div>
+                        </div>
+                        </div>
+                    <div class="modal-footer">
+                      <a id="adicionar" href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Adicionar</a>
+                    </div>
+                  </div>
+		              <a id="news" class="btn-floating btn-large waves-effect waves-light light-blue right  modal-trigger" href="#modal1"><i class="material-icons">add</i></a>
+		        </div>
+		  </div>
+		  <br><br><br>
+		  <div class="row right">
+		  	<a class="waves-effect waves-light btn light-blue">Salvar</a>
+		  </div>  	
+		</div>
+	</div>
+
+  <!--  Scripts-->
+  <script type="text/javascript">
+  	$(document).ready(function() {
+    $('select').material_select();
+    $('.modal').modal();
+	});
+  </script>
+  <script type="text/javascript">
+  	$('#adicionar').click(function(){
+  		//$("#novoAlimento").clone().appendTo("#alimentos");
+      $(".table1").append(' <tr >   <td><a th:text="Arroz" ">Arroz</a></td>   <td th:text="15">15</td>    <td th:text="Pacote">Pacote</td>   </tr>')
+	});
+  </script>
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="js/materialize.js"></script>
+  <script src="js/init.js"></script>
+
+  </body>
+</html>

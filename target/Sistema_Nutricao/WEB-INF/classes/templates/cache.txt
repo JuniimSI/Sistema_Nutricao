@@ -1,0 +1,28 @@
+
+								th:href="@{/receita/detalhes/__${segunda.id}__}"
+								th:text="${segunda.nome}" class="card-title"></a> <a
+								th:href="@{/cardapio/__${cardapio.id}__/escola/__${escola.id}__/programa/__${programa.id}__/receita/__${segunda.id}__/segunda/excluir}"
+								th:text="${terca.nome}" class="card-title"></a> <a
+								th:href="@{/cardapio/__${cardapio.id}__/escola/__${escola.id}__/programa/__${programa.id}__/receita/__${terca.id}__/terca/excluir}"
+								th:href="@{/receita/detalhes/__${quarta.id}__}"
+								th:text="${quarta.nome}" class="card-title"></a> <a
+								th:href="@{/cardapio/__${cardapio.id}__/escola/__${escola.id}__/programa/__${programa.id}__/receita/__${quarta.id}__/quarta/excluir}"
+					
+								th:text="${quinta.nome}" class="card-title"></a> <a
+								th:href="@{/cardapio/__${cardapio.id}__/escola/__${escola.id}__/programa/__${programa.id}__/receita/__${quinta.id}__/quinta/excluir}"
+			
+								th:text="${sexta.nome}" class="card-title"></a> <a
+								th:href="@{/cardapio/__${cardapio.id}__/escola/__${escola.id}__/programa/__${programa.id}__/receita/__${sexta.id}__/sexta/excluir}"
+								
+	<div class="modal-content">
+		<form data-model="cardapio"
+			th:action="@{/cardapio/__${cardapio.id}__/escola/__${escola.id}__/programa/__${programa.id}__/receita/sexta/adicionar}"
+			<input type="hidden" name="cardapio" th:value="${cardapio.id}" />
+			th:action="@{/cardapio/__${cardapio.id}__/escola/__${escola.id}__/programa/__${programa.id}__/receita/quinta/adicionar}"
+			th:object="${cardapio}" th:method="post">
+			th:action="@{/cardapio/__${cardapio.id}__/escola/__${escola.id}__/programa/__${programa.id}__/receita/quarta/adicionar}"
+		<form data-model="cardapio"
+			th:action="@{/cardapio/__${cardapio.id}__/escola/__${escola.id}__/programa/__${programa.id}__/receita/terca/adicionar}"
+			th:object="${cardapio}" th:method="post">
+			th:action="@{/cardapio/__${cardapio.id}__/escola/__${escola.id}__/programa/__${programa.id}__/receita/segunda/adicionar}"
+			

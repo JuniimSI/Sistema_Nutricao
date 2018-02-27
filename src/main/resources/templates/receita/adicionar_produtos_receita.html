@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<script type="text/javascript"
+	th:src="@{/js/plugins/jquery/jquery-2.1.1.min.js}"></script>
+<link rel="icon" type="image/png" href="images/icon.png"/>
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/jquery.dataTables.min.css}" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/buttons.dataTables.min.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/materialize.css}" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/materialize.min.css}" />
+<link rel="stylesheet" media="print" th:href="@{/css/style.css}" />
+<!-- Framework base -->
+<script type="text/javascript" th:src="@{/js/materialize.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/init.js}"></script>
+<script type="text/javascript" th:src="@{/js/materialize.js}"></script>
+<script type="text/javascript"
+	th:src="@{/js/plugins/jquery/jquery-2.1.1.min.js}"></script>
+<script type="text/javascript"
+	th:src="@{/js/plugins/jquery/jquery.mask.min.js}"></script>
+<script type="text/javascript"
+	th:src="@{/js/plugins/datatables/jquery.dataTables.min.js}"></script>
+
+<script type="text/javascript" th:src="@{/js/plugins/chart/chart.js}"></script>
+<script type="text/javascript" th:src="@{/js/plugins/cookie/cookie.js}"></script>
+<script type="text/javascript" th:src="@{/js/plugins/moment/moment.js}"></script>
+<title>Adicionando Produtos</title>
+</head>
+
+<section layout:fragment="conteudo">
+
+
+	<nav class="light-blue lighten-1">
+		<div class="nav-wrapper container">
+			<ul class="right hide-on-med-and-down">
+				<li><a href="#" data-activates="slide-out"
+					class="circular button-collapse-minimalize"> <i
+						class="material-icons">menu</i>
+				</a></li>
+			</ul>
+
+			<a href="#" data-activates="slide-out" class="button-collapse"><i
+				class="mdi-navigation-menu"></i></a>
+			<ul id="slide-out" class="side-nav">
+				<li><div class="user-view">
+						<div class="background">
+							<img th:src="@{/images/office.jpg}" />
+						</div>
+						<a href="#!name"><span
+							th:text=" ${#httpServletRequest.remoteUser}"
+							class="white-text name"> </span></a> <br />
+					</div></li>
+				<li><a th:href="@{/produto/listar}" class="light-blue-text"><i
+						class=" material-icons">local_pizza</i>Produtos</a></li>
+				<li><a th:href="@{/receita/listar}" class="light-blue-text"><i
+						class=" material-icons">local_dining</i>Receitas</a></li>
+				<li><a th:href="@{/cardapio/listar}" class="light-blue-text"><i
+						class=" material-icons">event_note</i>Cardápios</a></li>
+				<li><a th:href="@{/programa/listar}" class="light-blue-text"><i
+						class=" material-icons">extension</i>Programas</a></li>
+				<li><a th:href="@{/escola/listar}" class="light-blue-text"><i
+						class=" material-icons">domain</i>Escolas</a></li>
+				<li><div class="divider"></div></li>
+				<li><a href="#!" class="light-blue-text"><i
+						class="material-icons">person</i>Logout</a></li>
+			</ul>
+		</div>
+		<a href="#" data-activates="slide-out" class="button-collapse">as</a>
+	</nav>
+
+	<div class="container" th:fragment="produtoadd">
+		<div class="col s12">
+
+			<form data-model="produto" th:action="@{/receita/produto/adicionar}"
+				th:object="${produto}" th:method="post">
+				<input type="hidden" name="receita" th:value="${receita.id}" />
+
+				<div class="card">
+					<div class="card-content">
+						<div class="card-content ">
+							<h5 class="title light">Adicionando Alimentos</h5>
+							<div class="row">
+								<div class="row center col s12 input-field">
+
+									<select name="produto" id="produtoObject">
+										<option th:each="produto : ${produtosSelect}"
+											th:value="${produto.id}" th:text="${produto.nome}"></option>
+									</select> <label for="produtoObject">Produto</label>
+								</div>
+								<div class="col s12 m4 l2">
+									<p></p>
+								</div>
+								<div class="row center col s12 m4 l8 input-field">
+									<input type="number" step="0.0001" name="valorParaConversao"
+										id="valorParaConversao" required="required" /> <label
+										for="valorParaConversao">Quantidade utilizada: (Ex.
+										0.00) </label>
+								</div>
+								<div class="col s12 m4 l2">
+									<p></p>
+								</div>
+							</div>
+						</div>
+						<div class="row center">
+							<button type="submit"
+								class="waves-effect waves-light btn light-blue">Adicionar</button>
+						</div>
+						<br /> <br /> <br />
+
+					</div>
+
+				</div>
+
+			</form>
+		</div>
+	</div>
+</section>
+
+<footer class="page-footer light-blue">
+	<div class="container">
+		<div class="row">
+			<div class="col l6 s12">
+				<h5 class="white-text">DEV</h5>
+				<p class="grey-text text-lighten-4">.</p>
+			</div>
+			<div class="col l3 s12">
+				<h5 class="white-text">Settings</h5>
+				<ul>
+					<li><a class="white-text" href="#!">Link 1</a></li>
+					<li><a class="white-text" href="#!">Link 2</a></li>
+				</ul>
+			</div>
+			<div class="col l3 s12">
+				<h5 class="white-text">Connect</h5>
+				<ul>
+					<li><a class="white-text" href="#!">Link 1</a></li>
+					<li><a class="white-text" href="#!">Link 2</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="footer-copyright">
+		<div class="container">
+			Made by <a class="orange-text text-lighten-3"
+				href="http://materializecss.com">Materialize</a>
+		</div>
+	</div>
+</footer>
+<script type="text/javascript">
+	
+</script>
+</html>
